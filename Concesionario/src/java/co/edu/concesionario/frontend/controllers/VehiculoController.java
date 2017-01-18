@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.edu.concesionario.frontend.controllers;
 
 import co.edu.concesionario.backend.entities.Vehiculo;
 import co.edu.concesionario.backend.facades.VehiculoFacadeLocal;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Mario Camargo
  */
-@Named(value = "vehiculoController")
+@ManagedBean
 @SessionScoped
 public class VehiculoController implements Serializable {
 
@@ -47,7 +44,6 @@ public class VehiculoController implements Serializable {
         this.valor = valor;
     }
     
-
     public List<Vehiculo> getVehiculoList() {
         vehiculoList = (List<Vehiculo>) vehiculoFacade.listarCarros(getValor());
         return vehiculoList;
@@ -57,6 +53,11 @@ public class VehiculoController implements Serializable {
         this.vehiculoList = vehiculoList;
     }
 
+    @PostConstruct
+    public void init(){
+        this.getVehiculoList();
+    }
+    
     public String redirigir(){
         return "listarVehiculos.xhtml";
     }

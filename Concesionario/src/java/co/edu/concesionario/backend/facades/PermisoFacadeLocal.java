@@ -5,7 +5,7 @@
  */
 package co.edu.concesionario.backend.facades;
 
-import co.edu.concesionario.backend.entities.Vehiculo;
+import co.edu.concesionario.backend.entities.Permiso;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,21 +14,19 @@ import javax.ejb.Local;
  * @author Mario Camargo
  */
 @Local
-public interface VehiculoFacadeLocal {
+public interface PermisoFacadeLocal {
 
-    void create(Vehiculo vehiculo);
+    void create(Permiso permiso);
 
-    void edit(Vehiculo vehiculo);
+    void edit(Permiso permiso);
 
-    void remove(Vehiculo vehiculo);
+    void remove(Permiso permiso);
 
-    Vehiculo find(Object id);
+    Permiso find(Object id);
 
-    List<Vehiculo> findAll();
+    List<Permiso> findAll();
 
-    List<Vehiculo> findRange(int[] range);
-    
-    Vehiculo  listarCarros(int valor);
+    List<Permiso> findRange(int[] range);
 
     int count();
     

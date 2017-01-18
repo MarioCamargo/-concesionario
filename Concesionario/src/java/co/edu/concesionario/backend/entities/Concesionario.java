@@ -13,12 +13,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,10 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Concesionario.findAll", query = "SELECT c FROM Concesionario c")
     , @NamedQuery(name = "Concesionario.findByIdConcesionario", query = "SELECT c FROM Concesionario c WHERE c.idConcesionario = :idConcesionario")
-    , @NamedQuery(name = "Concesionario.findByNit", query = "SELECT c FROM Concesionario c WHERE c.nit = :nit")
-    , @NamedQuery(name = "Concesionario.findByNombre", query = "SELECT c FROM Concesionario c WHERE c.nombre = :nombre")
-    , @NamedQuery(name = "Concesionario.findByTelefono", query = "SELECT c FROM Concesionario c WHERE c.telefono = :telefono")
-    , @NamedQuery(name = "Concesionario.findByDireccion", query = "SELECT c FROM Concesionario c WHERE c.direccion = :direccion")})
+    , @NamedQuery(name = "Concesionario.findByNit", query = "SELECT c FROM Concesionario c WHERE c.nit = :nit")})
 public class Concesionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,21 +46,9 @@ public class Concesionario implements Serializable {
     @NotNull
     @Column(name = "nit")
     private int nit;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nombre")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "telefono")
-    private String telefono;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "direccion")
-    private String direccion;
+    @JoinColumn(name = "idConcesionario", referencedColumnName = "idTipo", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private TipoUsuario tipoUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "concesionario", fetch = FetchType.LAZY)
     private List<Vehiculo> vehiculoList;
 
@@ -73,12 +59,9 @@ public class Concesionario implements Serializable {
         this.idConcesionario = idConcesionario;
     }
 
-    public Concesionario(Integer idConcesionario, int nit, String nombre, String telefono, String direccion) {
+    public Concesionario(Integer idConcesionario, int nit) {
         this.idConcesionario = idConcesionario;
         this.nit = nit;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
     }
 
     public Integer getIdConcesionario() {
@@ -97,28 +80,12 @@ public class Concesionario implements Serializable {
         this.nit = nit;
     }
 
-    public String getNombre() {
-        return nombre;
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     @XmlTransient
