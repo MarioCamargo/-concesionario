@@ -21,14 +21,23 @@ public class VehiculoController implements Serializable {
     @EJB
     private VehiculoFacadeLocal vehiculoFacade;
     private int valor;
+    private Vehiculo vehiculo;
     private List <Vehiculo> vehiculoList;
     private List <Vehiculo> vehiculoListar;
     
     public VehiculoController() {
     }
 
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
     public List<Vehiculo> getVehiculoListar() {
-        vehiculoListar=vehiculoFacade.findAll();
+        vehiculoListar = vehiculoFacade.findAll();
         return vehiculoListar;
     }
 
@@ -43,22 +52,24 @@ public class VehiculoController implements Serializable {
     public void setValor(int valor) {
         this.valor = valor;
     }
-    
-    public List<Vehiculo> getVehiculoList() {
-        vehiculoList = (List<Vehiculo>) vehiculoFacade.listarCarros(getValor());
-        return vehiculoList;
-    }
-
-    public void setVehiculoList(List<Vehiculo> vehiculoList) {
-        this.vehiculoList = vehiculoList;
-    }
 
     @PostConstruct
     public void init(){
-        this.getVehiculoList();
+        vehiculo = new Vehiculo();
     }
     
     public String redirigir(){
         return "listarVehiculos.xhtml";
+    }
+    
+    public List<Vehiculo> listarVehiculos(){
+        List<Vehiculo> lista = null;
+        try{
+            vehiculoFacade.listarCarros(getValor());
+            setValor(0);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 }

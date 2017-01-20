@@ -12,21 +12,21 @@
 
 
             <h:form>
-                <p:outputLabel value="#{vehiculoController.valor}"></p:outputLabel>
+                
                 <h1><h:outputText value="List"/></h1>
-                <p:dataTable value="#{vehiculoController.vehiculoList}" var="item">
+                <p:dataTable value="#{vehiculoController.listarVehiculos()}" var="item">
                     
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idVehiculo}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Placa"/>
                         </f:facet>
                         <h:outputText value="#{item.placa}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Marca"/>
-                        </f:facet>
-                        <h:outputText value="#{item.marca}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -42,27 +42,33 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Concesionario"/>
-                        </f:facet>
-                        <h:outputText value="#{item.concesionario}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
                             <h:outputText value="Cantidad"/>
                         </f:facet>
                         <h:outputText value="#{item.cantidad}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Tipo"/>
-                        </f:facet>
-                        <h:outputText value="#{item.tipo}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
                             <h:outputText value="Kilometraje"/>
                         </f:facet>
                         <h:outputText value="#{item.kilometraje}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Concesionario"/>
+                        </f:facet>
+                        <h:outputText value="#{item.concesionario}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Marca"/>
+                        </f:facet>
+                        <h:outputText value="#{item.marca}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Tipo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipo}"/>
                     </p:column>
                     <h:commandButton action="consultarVehiculos" value="Otro valor"/>
                 </p:dataTable>

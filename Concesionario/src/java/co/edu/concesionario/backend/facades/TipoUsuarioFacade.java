@@ -36,17 +36,39 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
         TipoUsuario usuario = null;
         String consulta;
         try{
-            consulta = "from tiposUsuario u where u.nombre=?1 and u.contrasena=?2";
+            consulta = "from tiposusuario u where u.nombre=?1 and u.contrasena=?2";
             Query query = em.createQuery(consulta);
             query.setParameter(1, tu.getNombre());
             query.setParameter(2, tu.getContrasena());
             List <TipoUsuario> lista = query.getResultList();
-            if (lista.isEmpty()) {
+            if (!lista.isEmpty()) {
                 usuario = lista.get(0);
             }
             
         }catch(Exception e){
             throw e;
+        }
+        return usuario;
+    }
+    
+    @Override
+    public TipoUsuario validarUsuarioRegistrado(TipoUsuario us) {
+        TipoUsuario usuario = null;
+        String consulta;
+        try{
+            consulta = "FROM tiposusuario  WHERE nombre =?1 and contrasena = ?2";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, us.getNombre());
+            query.setParameter(2, us.getContrasena());
+            
+            List<TipoUsuario> lista = query.getResultList();
+            
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+            System.out.println(usuario);
+        }catch(Exception e){
+            e.getMessage();
         }
         return usuario;
     }

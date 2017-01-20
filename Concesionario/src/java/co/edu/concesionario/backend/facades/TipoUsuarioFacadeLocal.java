@@ -29,6 +29,8 @@ public interface TipoUsuarioFacadeLocal {
     List<TipoUsuario> findRange(int[] range);
     
     TipoUsuario iniciarSesion(TipoUsuario tu);
+    
+    TipoUsuario validarUsuarioRegistrado(TipoUsuario us);
 
     int count();
     

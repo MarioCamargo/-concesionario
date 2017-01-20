@@ -6,16 +6,22 @@
 package co.edu.concesionario.backend.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,6 +65,12 @@ public class TipoUsuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "contrasena")
     private String contrasena;
+    @ManyToMany(mappedBy = "tipoUsuarioList", fetch = FetchType.LAZY)
+    private List<Permiso> permisoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
+    private Concesionario concesionario;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
+    private Cliente cliente;
 
     public TipoUsuario() {
     }
@@ -113,6 +125,31 @@ public class TipoUsuario implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    @XmlTransient
+    public List<Permiso> getPermisoList() {
+        return permisoList;
+    }
+
+    public void setPermisoList(List<Permiso> permisoList) {
+        this.permisoList = permisoList;
+    }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override

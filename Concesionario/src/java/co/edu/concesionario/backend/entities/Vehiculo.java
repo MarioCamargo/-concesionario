@@ -59,7 +59,7 @@ public class Vehiculo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "precio")
-    private double precio;
+    private int precio;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cantidad")
@@ -87,7 +87,7 @@ public class Vehiculo implements Serializable {
         this.idVehiculo = idVehiculo;
     }
 
-    public Vehiculo(Integer idVehiculo, String placa, int modelo, double precio, int cantidad, int kilometraje) {
+    public Vehiculo(Integer idVehiculo, String placa, int modelo, int precio, int cantidad, int kilometraje) {
         this.idVehiculo = idVehiculo;
         this.placa = placa;
         this.modelo = modelo;
@@ -120,11 +120,11 @@ public class Vehiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

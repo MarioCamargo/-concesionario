@@ -8,19 +8,17 @@ package co.edu.concesionario.frontend.controllers;
 import co.edu.concesionario.backend.entities.TipoUsuario;
 import co.edu.concesionario.backend.facades.TipoUsuarioFacadeLocal;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author Mario Camargo
  */
 @Named(value = "loginController")
-@SessionScoped
+@ViewScoped
 public class LoginController implements Serializable {
 
     private String tipoIden;
@@ -55,16 +53,13 @@ public class LoginController implements Serializable {
     
     public String iniciarSesion() {
 
-        String redireccionar = null;
-        FacesContext context = FacesContext.getCurrentInstance();
+        String respuesta = null;
         try {
             usuarioFacade.iniciarSesion(usuario);
-            
-            redireccionar = "lista";
+            respuesta = "consultarVehiculos.xhtml";
         } catch (Exception e) {
-           
-              context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",""+e.getMessage()));
+            throw e;
         }
-        return redireccionar;
+        return respuesta;
     }
 }

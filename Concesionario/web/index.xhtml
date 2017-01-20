@@ -11,19 +11,17 @@
         <h:form>
             <p:messages autoUpdate="true"/>
             <h:panelGrid columns="2">
-                 <p:outputLabel for="txtTipoIden" value="Tipo de identificación"/>
-                 <p:inputText id="txtTipoIden" value="#{loginController.tipoIden}" required="true" 
-                             requiredMessage="El tipo de usuario es requerido" maxlength="10"/>
+                 
                 <p:outputLabel for="txtUsuario" value="Identificación"/>
                 <p:inputText id="txtUsuario"   value="#{loginController.usuario.nombre}" required="true" 
-                             requiredMessage="La identificacion del usuario es requerida" maxlength="10"/>
+                             requiredMessage="La identificacion del usuario es requerida"/>
 
                 <p:outputLabel for="txtClave" value="Constraseña"/>
                 <p:password id="txtClave" 
                             required="true" value="#{loginController.usuario.contrasena}" requiredMessage="La contraseña es requerida"/>
 
                 <h:column />
-                <p:commandButton value="Ingresar" action="#{loginController.iniciarSesion()}"/>
+                <h:commandButton value="Ingresar" action="#{loginController.iniciarSesion()}"/>
                 <!--<h:commandButton value="Iniciar Sesión" action="Views/bienvenido.xhtml"/>-->
             </h:panelGrid>
         </h:form>

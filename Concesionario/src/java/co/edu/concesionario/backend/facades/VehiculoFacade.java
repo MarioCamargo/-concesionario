@@ -9,8 +9,12 @@ import co.edu.concesionario.backend.entities.Vehiculo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureParameter;
+import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -32,30 +36,31 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements Vehiculo
     }
 
     @Override
-    public Vehiculo listarCarros(int valor) {
-        Vehiculo vehiculo = null;
+    public void listarCarros(int valor) {
+        List<Vehiculo> vehiculo = null;
         String consulta;
         try {
-            consulta = "select v.placa, v.marca, v.modelo, concat('$ ',format(v.precio,0)), v.concesionario, v.cantidad, v.tipo, format(v.kilometraje,0)"
-                    + "from vehiculos v join concesionarios c on v.concesionario=c.idConcesionario"
-                    + "join marcas m on v.marca=m.idMarca"
-                    + "join tipos t on v.tipo=t.idTipo"
-                    + "join tiposusuario tu on tu.idTipo=c.idConcesionario"
-                    + "where v.precio>=?1"
-                    + "order by v.precio";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, valor);
-
-            List<Vehiculo> lista = query.getResultList();
-
-            if (!lista.isEmpty()) {
-                vehiculo = lista.get(0);
-            }
-            System.out.println(vehiculo);
+            StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("mostrarPrecios");
+            procedimiento.registerStoredProcedureParameter("var", Integer.class, ParameterMode.IN);
+            procedimiento.setParameter("var", valor);
+            procedimiento.execute();
+//            consulta = "from vehiculos v join concesionarios c on v.concesionario=c.idConcesionario "
+//                    + "join marcas m on v.marca=m.idMarca "
+//                    + "join tipos t on v.tipo=t.idTipo "
+//                    + "join tiposusuario tu on tu.idTipo=c.idConcesionario "
+//                    + "where v.precio>=80000000 "
+//                    + "order by v.precio";
+//            TypedQuery<Vehiculo> query = (TypedQuery<Vehiculo>) em.createNativeQuery(consulta, Vehiculo.class);
+//
+//            if (query.getResultList().size()>0) {
+//                return query.getResultList();
+//            } else  {
+//                return null;
+//            }
         } catch (Exception e) {
-            e.getMessage();
+            
         }
-        return vehiculo;
+        
     }
 
 }
