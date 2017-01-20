@@ -56,19 +56,19 @@
                         <f:facet name="header">
                             <h:outputText value="Concesionario"/>
                         </f:facet>
-                        <h:outputText value="#{item.concesionario}"/>
+                        <h:outputText value="#{item.concesionario.tipoUsuario.nombre}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Marca"/>
                         </f:facet>
-                        <h:outputText value="#{item.marca}"/>
+                        <h:outputText value="#{item.marca.marca}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Tipo"/>
                         </f:facet>
-                        <h:outputText value="#{item.tipo}"/>
+                        <h:outputText value="#{item.tipo.tipo}"/>
                     </p:column>
                     <h:commandButton action="consultarVehiculos" value="Otro valor"/>
                 </p:dataTable>

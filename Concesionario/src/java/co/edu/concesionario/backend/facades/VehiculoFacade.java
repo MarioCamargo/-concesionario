@@ -36,31 +36,29 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements Vehiculo
     }
 
     @Override
-    public void listarCarros(int valor) {
+    public List<Vehiculo> listarCarros(int valor) {
         List<Vehiculo> vehiculo = null;
         String consulta;
         try {
-            StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("mostrarPrecios");
-            procedimiento.registerStoredProcedureParameter("var", Integer.class, ParameterMode.IN);
-            procedimiento.setParameter("var", valor);
-            procedimiento.execute();
-//            consulta = "from vehiculos v join concesionarios c on v.concesionario=c.idConcesionario "
-//                    + "join marcas m on v.marca=m.idMarca "
-//                    + "join tipos t on v.tipo=t.idTipo "
-//                    + "join tiposusuario tu on tu.idTipo=c.idConcesionario "
-//                    + "where v.precio>=80000000 "
-//                    + "order by v.precio";
-//            TypedQuery<Vehiculo> query = (TypedQuery<Vehiculo>) em.createNativeQuery(consulta, Vehiculo.class);
-//
-//            if (query.getResultList().size()>0) {
-//                return query.getResultList();
-//            } else  {
-//                return null;
-//            }
+            consulta = "select v.idVehiculo, v.placa, v.modelo, v.precio, v.cantidad, v.kilometraje, v.concesionario, v.marca, v.tipo "
+                    + "from vehiculos v join concesionarios c on v.concesionario=c.idConcesionario "
+                    + "join marcas m on v.marca=m.idMarca "
+                    + "join tipos t on v.tipo=t.idTipo "
+                    + "join tiposusuario tu on tu.idTipo=c.idConcesionario "
+                    + "where v.precio>=? "
+                    + "order by v.precio";
+            Query query = em.createNativeQuery(consulta, Vehiculo.class);
+            query.setParameter(1, valor);
+            
+            if (query.getResultList().size()>0) {
+                vehiculo= query.getResultList();
+            } else  {
+                return null;
+            }
         } catch (Exception e) {
             
         }
-        
+        return vehiculo;
     }
 
 }

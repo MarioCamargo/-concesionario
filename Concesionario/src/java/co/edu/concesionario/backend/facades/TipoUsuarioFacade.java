@@ -56,7 +56,7 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
         TipoUsuario usuario = null;
         String consulta;
         try{
-            consulta = "FROM tiposusuario  WHERE nombre =?1 and contrasena = ?2";
+            consulta = "FROM tiposusuario  WHERE nombre =?1 and contrasena =?2";
             Query query = em.createQuery(consulta);
             query.setParameter(1, us.getNombre());
             query.setParameter(2, us.getContrasena());
@@ -65,6 +65,8 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
             
             if (!lista.isEmpty()) {
                 usuario = lista.get(0);
+            } else {
+                System.out.println("no se encontraron datos");
             }
             System.out.println(usuario);
         }catch(Exception e){

@@ -65,7 +65,7 @@ public class VehiculoController implements Serializable {
     public List<Vehiculo> listarVehiculos(){
         List<Vehiculo> lista = null;
         try{
-            vehiculoFacade.listarCarros(getValor());
+            lista= vehiculoFacade.listarCarros(getValor());
             setValor(0);
         }catch(Exception e){
             System.out.println(e.getMessage());

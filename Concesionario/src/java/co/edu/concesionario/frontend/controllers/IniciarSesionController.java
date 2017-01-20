@@ -32,7 +32,6 @@ public class IniciarSesionController implements Serializable { //agregar seriali
      
     @PostConstruct          //AGREGAR UN POSTCONSTRUCT
     public void init() {
-        usuario = new TipoUsuario();
     }
 
     public TipoUsuario getUsuario() {
@@ -51,7 +50,7 @@ public class IniciarSesionController implements Serializable { //agregar seriali
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             us = usuarioFacade.validarUsuarioRegistrado(usuario);
-            if (us != null) {
+            if (us!=null) {
                 //Almacenar en la sesión de JSF//                
                  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido"));
                  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us);
