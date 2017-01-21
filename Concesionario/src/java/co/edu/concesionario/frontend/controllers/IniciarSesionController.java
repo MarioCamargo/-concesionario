@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 
 /**
@@ -21,7 +22,7 @@ import javax.annotation.PostConstruct;
  */
 @Named(value = "iniciarSesionControlador")
 @ViewScoped
-public class IniciarSesionController implements Serializable { //agregar serializable
+public class IniciarSesionController implements Serializable {
 
     @EJB
     private TipoUsuarioFacadeLocal usuarioFacade;
@@ -30,8 +31,9 @@ public class IniciarSesionController implements Serializable { //agregar seriali
     public IniciarSesionController() {
     }
      
-    @PostConstruct          //AGREGAR UN POSTCONSTRUCT
+    @PostConstruct
     public void init() {
+        usuario = new TipoUsuario();
     }
 
     public TipoUsuario getUsuario() {
@@ -43,25 +45,33 @@ public class IniciarSesionController implements Serializable { //agregar seriali
     }
 
     public String iniciarSesion() {
-//        Usuario usuarioR;
         TipoUsuario us;
 
         String redireccionar = null;
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             us = usuarioFacade.validarUsuarioRegistrado(usuario);
-            if (us!=null) {
-                //Almacenar en la sesión de JSF//                
+            if (us!=null) {                
                  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido"));
-                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us);
+//                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us);
                  context.getExternalContext().redirect("consultarVehiculos.xhtml");
             } else {   
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto\n"+ usuario.getNombre()+"\n"+usuario.getContrasena()));
             }
         } catch (Exception e) {
            
               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",""+e.getMessage()));
         }
         return redireccionar;
+    }
+    
+    public List<TipoUsuario> listarUsuario(){
+        List<TipoUsuario> lista = null;
+        try{
+            lista= usuarioFacade.listarUsuarios(usuario);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 }

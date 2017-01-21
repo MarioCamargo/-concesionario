@@ -13,60 +13,48 @@
 
             <h:form>
                 <h1><h:outputText value="List"/></h1>
-                <p:dataTable value="#{vehiculoController.vehiculoListar}" var="item">
+                <p:dataTable value="#{iniciarSesionControlador.listarUsuario()}" var="item">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="IdVehiculo"/>
+                            <h:outputText value="IdTipo"/>
                         </f:facet>
-                        <h:outputText value="#{item.idVehiculo}"/>
+                        <h:outputText value="#{item.idTipo}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Placa"/>
+                            <h:outputText value="Nombre"/>
                         </f:facet>
-                        <h:outputText value="#{item.placa}"/>
+                        <h:outputText value="#{item.nombre}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Modelo"/>
+                            <h:outputText value="Telefono"/>
                         </f:facet>
-                        <h:outputText value="#{item.modelo}"/>
+                        <h:outputText value="#{item.telefono}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Precio"/>
+                            <h:outputText value="Direccion"/>
                         </f:facet>
-                        <h:outputText value="#{item.precio}"/>
+                        <h:outputText value="#{item.direccion}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Cantidad"/>
+                            <h:outputText value="Contrasena"/>
                         </f:facet>
-                        <h:outputText value="#{item.cantidad}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Kilometraje"/>
-                        </f:facet>
-                        <h:outputText value="#{item.kilometraje}"/>
+                        <h:outputText value="#{item.contrasena}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Concesionario"/>
                         </f:facet>
-                        <h:outputText value="#{item.concesionario.tipoUsuario.nombre}"/>
+                        <h:outputText value="#{item.concesionario}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Marca"/>
+                            <h:outputText value="Cliente"/>
                         </f:facet>
-                        <h:outputText value="#{item.marca.marca}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Tipo"/>
-                        </f:facet>
-                        <h:outputText value="#{item.tipo.tipo}"/>
+                        <h:outputText value="#{item.cliente}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

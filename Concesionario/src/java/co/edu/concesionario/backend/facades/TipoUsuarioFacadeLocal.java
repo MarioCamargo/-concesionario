@@ -28,7 +28,7 @@ public interface TipoUsuarioFacadeLocal {
 
     List<TipoUsuario> findRange(int[] range);
     
-    TipoUsuario iniciarSesion(TipoUsuario tu);
+    List<TipoUsuario> listarUsuarios(TipoUsuario tu);
     
     TipoUsuario validarUsuarioRegistrado(TipoUsuario us);
 

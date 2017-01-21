@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Listar vehiculos</title>
     </h:head>
     <h:body>
         <f:view>
@@ -13,7 +13,7 @@
 
             <h:form>
                 
-                <h1><h:outputText value="List"/></h1>
+                <center><h1><h:outputText value="Vehiculos"/></h1></center>
                 <p:dataTable value="#{vehiculoController.listarVehiculos()}" var="item">
                     
                     <p:column>
@@ -70,8 +70,8 @@
                         </f:facet>
                         <h:outputText value="#{item.tipo.tipo}"/>
                     </p:column>
-                    <h:commandButton action="consultarVehiculos" value="Otro valor"/>
                 </p:dataTable>
+                <p:commandButton action="consultarVehiculos" value="Otro valor"/>
             </h:form>
         </f:view>
     </h:body>

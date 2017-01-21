@@ -6,6 +6,7 @@
 package co.edu.concesionario.backend.facades;
 
 import co.edu.concesionario.backend.entities.Vehiculo;
+import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,6 +30,8 @@ public interface VehiculoFacadeLocal {
     List<Vehiculo> findRange(int[] range);
     
     List<Vehiculo> listarCarros(int valor);
+    
+    String importarArchivos(String fileName)throws SQLException;
 
     int count();
     

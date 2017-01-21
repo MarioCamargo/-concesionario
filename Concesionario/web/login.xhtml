@@ -7,8 +7,8 @@
         <title>Gs Cars</title>    
         <title>Iniciar sesión</title>
     </h:head>
-    <h:body id="principal">           
-        <div id="cuadro">
+    <h:body>           
+        <div>
             <center>
                 <h1>Iniciar sesion</h1>
             <h:form>
@@ -17,19 +17,15 @@
                     <p:outputLabel for="txtUsuario" value="Identificacion"/>
                     <p:inputText id="txtUsuario" value="#{iniciarSesionControlador.usuario.nombre}" required="true" 
                                  requiredMessage="La identificacion del usuario es requerida" maxlength="10"/>
-
                     <p:outputLabel for="txtClave" value="Constraseña"/>
                     <p:password id="txtClave" value="#{iniciarSesionControlador.usuario.contrasena}" 
                                 required="true" requiredMessage="La contraseña es requerida"/>
 
                     <h:column />
-                    <p:commandButton value="Ingresar" action="consultarVehiculos.xhtml"/>
-                    
-                    <!--<h:commandButton value="Iniciar Sesión" action="Views/bienvenido.xhtml"/>-->
-                </h:panelGrid>
-                <p:separator />                      
+                    <p:commandButton value="Ingresar" action="pruebaUsuarios.xhtml"/>
+                </h:panelGrid>                    
             </h:form> 
-                </center>
+            </center>
         </div>
     </h:body>
 </html>
