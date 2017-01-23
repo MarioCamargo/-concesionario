@@ -12,16 +12,19 @@
 
 
             <h:form>
-                
                 <center><h1><h:outputText value="Vehiculos"/></h1></center>
-                <p:dataTable value="#{vehiculoController.listarVehiculos()}" var="item">
-                    
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idVehiculo}"/>
-                    </p:column>
+                <p:panel header="Exportar Tabla">
+                    <h:commandLink>
+                        <p:graphicImage value="Imagenes/pdf.png" width="44"/>
+                        <p:dataExporter type="pdf" target="vehiculo" fileName="vehiculos" pageOnly="true"/>
+                    </h:commandLink>
+                    <h:commandLink>
+                        <p:graphicImage value="Imagenes/excel.png" width="44"/>
+                        <p:dataExporter type="xls" target="vehiculo" fileName="vehiculos" pageOnly="true"/>
+                    </h:commandLink>
+                </p:panel>
+                <p:dataTable id="vehiculo" value="#{vehiculoController.listarVehiculos()}" var="item" paginator="true" rows="5" rowsPerPageTemplate="5,10,15">
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Placa"/>
