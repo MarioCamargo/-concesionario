@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,31 +11,44 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author SENA
  */
 @Named(value = "iniciarSesionControlador")
-@ViewScoped
+@RequestScoped
 public class IniciarSesionController implements Serializable {
 
     @EJB
     private TipoUsuarioFacadeLocal usuarioFacade;
     private TipoUsuario usuario;
+    private Long id;
+    private String seleccion;
     
     public IniciarSesionController() {
     }
-     
-    @PostConstruct
-    public void init() {
-        usuario = new TipoUsuario();
+
+    public long getId() {
+        return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(String seleccion) {
+        this.seleccion = seleccion;
+    }
+    
     public TipoUsuario getUsuario() {
         return usuario;
     }
@@ -44,17 +57,30 @@ public class IniciarSesionController implements Serializable {
         this.usuario = usuario;
     }
 
+    @PostConstruct
+    public void init() {
+        usuario = new TipoUsuario();
+    }
+    
     public String iniciarSesion() {
         TipoUsuario us;
 
         String redireccionar = null;
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            us = usuarioFacade.validarUsuarioRegistrado(usuario);
+            switch (seleccion) {
+                case "Cl":
+                    usuario.getCliente().setCedula(id);
+                    break;
+                case "Co":
+                    usuario.getConcesionario().setNit(id);
+                    break;
+            }
+            us = usuarioFacade.validarUsuarioRegistrado(usuario,seleccion);
             if (us!=null) {                
                  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido"));
 //                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us);
-                 context.getExternalContext().redirect("consultarVehiculos.xhtml");
+                 redireccionar="consultarVehiculos.xhtml";
             } else {   
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto\n"+ usuario.getNombre()+"\n"+usuario.getContrasena()));
             }

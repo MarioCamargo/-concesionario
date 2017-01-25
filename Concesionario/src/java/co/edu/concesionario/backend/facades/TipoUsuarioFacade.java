@@ -30,52 +30,73 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
     public TipoUsuarioFacade() {
         super(TipoUsuario.class);
     }
-    
+
     @Override
-    public TipoUsuario validarUsuarioRegistrado(TipoUsuario us) {
+    public TipoUsuario validarUsuarioRegistrado(TipoUsuario us, String tipo) {
         TipoUsuario usuario = null;
         String consulta;
-        try{
-            consulta = "select * FROM tiposusuario WHERE nombre =? and contrasena =?";
-            Query query = em.createNativeQuery(consulta, TipoUsuario.class);
-            query.setParameter(1, us.getNombre());
-            query.setParameter(2, us.getContrasena());
-            List<TipoUsuario> lista = query.getResultList();
-            if (lista.size()>0) {
-                usuario= lista.get(0);
+        Query query;
+        List<TipoUsuario> lista;
+        try {
+            switch (tipo) {
+                case "Cl":
+                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN clientes cl on tu.idTipo=cl.idCliente WHERE cl.cedula =? and tu.contrasena =?";
+                    query = em.createNativeQuery(consulta, TipoUsuario.class);
+                    query.setParameter(1, us.getCliente().getCedula());
+                    query.setParameter(2, us.getContrasena());
+                    lista = query.getResultList();
+                    if (!lista.isEmpty()) {
+                        usuario = lista.get(0);
+                    }
+                    break;
+                case "Co":
+                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN concesionarios co on tu.idTipo=co.idConcesionario WHERE co.nit =? and tu.contrasena =?";
+                    query = em.createNativeQuery(consulta, TipoUsuario.class);
+                    query.setParameter(1, us.getConcesionario().getNit());
+                    query.setParameter(2, us.getContrasena());
+                    lista = query.getResultList();
+                    if (!lista.isEmpty()) {
+                        usuario = lista.get(0);
+                    }
+                    break;
+            }
+
+            /*if (query.getResultList().size()>0) {
+                usuario=(TipoUsuario) query.getResultList();
             } else  {
                 return null;
-            }
-//            List<TipoUsuario> lista = query.getResultList();
-//            
-//            if (!lista.isEmpty()) {
-//                usuario = lista.get(0);
-//            } else {
-//                System.out.println("no se encontraron datos");
-//            }
+            }*/
+        
 //            System.out.println(usuario);
-        }catch(Exception e){
-            e.getMessage();
-        }
-        return usuario;
     }
+    catch (Exception e
+
     
-    @Override
-    public List<TipoUsuario> listarUsuarios(TipoUsuario tu) {
+        ) {
+            e.getMessage();
+    }
+    return usuario ;
+}
+
+@Override
+        public List<TipoUsuario> listarUsuarios(TipoUsuario tu) {
         List<TipoUsuario> usuario = null;
         String consulta;
         try {
             consulta = "select * FROM tiposusuario WHERE nombre =? and contrasena =?";
-            Query query = em.createNativeQuery(consulta, TipoUsuario.class);
+            Query 
+
+query = em.createNativeQuery(consulta, TipoUsuario.class
+);
             query.setParameter(1, tu.getNombre());
             query.setParameter(2, tu.getContrasena());
-            if (query.getResultList().size()>0) {
-                usuario=query.getResultList();
-            } else  {
+            if (query.getResultList().size() > 0) {
+                usuario = query.getResultList();
+            } else {
                 return null;
             }
         } catch (Exception e) {
-            
+
         }
         return usuario;
     }

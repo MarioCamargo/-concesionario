@@ -45,7 +45,7 @@ public class Concesionario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "nit")
-    private int nit;
+    private long nit;
     @JoinColumn(name = "idConcesionario", referencedColumnName = "idTipo", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private TipoUsuario tipoUsuario;
@@ -72,11 +72,11 @@ public class Concesionario implements Serializable {
         this.idConcesionario = idConcesionario;
     }
 
-    public int getNit() {
+    public long getNit() {
         return nit;
     }
 
-    public void setNit(int nit) {
+    public void setNit(long nit) {
         this.nit = nit;
     }
 

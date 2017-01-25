@@ -30,7 +30,7 @@ public interface TipoUsuarioFacadeLocal {
     
     List<TipoUsuario> listarUsuarios(TipoUsuario tu);
     
-    TipoUsuario validarUsuarioRegistrado(TipoUsuario us);
+    TipoUsuario validarUsuarioRegistrado(TipoUsuario us, String tipo);
 
     int count();
     
