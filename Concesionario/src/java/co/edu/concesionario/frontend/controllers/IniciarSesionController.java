@@ -5,6 +5,9 @@
  */
 package co.edu.concesionario.frontend.controllers;
 
+
+import co.edu.concesionario.backend.entities.Cliente;
+import co.edu.concesionario.backend.entities.Concesionario;
 import co.edu.concesionario.backend.entities.TipoUsuario;
 import co.edu.concesionario.backend.facades.TipoUsuarioFacadeLocal;
 import javax.ejb.EJB;
@@ -20,25 +23,18 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author SENA
  */
-@Named(value = "iniciarSesionControlador")
+@Named(value = "iniciarSesionController")
 @RequestScoped
 public class IniciarSesionController implements Serializable {
 
     @EJB
     private TipoUsuarioFacadeLocal usuarioFacade;
     private TipoUsuario usuario;
-    private Long id;
+    private Cliente cliente;
+    private Concesionario concesionario;
     private String seleccion;
     
     public IniciarSesionController() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getSeleccion() {
@@ -57,9 +53,27 @@ public class IniciarSesionController implements Serializable {
         this.usuario = usuario;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+    
     @PostConstruct
     public void init() {
         usuario = new TipoUsuario();
+        cliente = new Cliente();
+        concesionario = new Concesionario();
     }
     
     public String iniciarSesion() {
@@ -70,19 +84,20 @@ public class IniciarSesionController implements Serializable {
         try {
             switch (seleccion) {
                 case "Cl":
-                    usuario.getCliente().setCedula(id);
+                    usuario.setCliente(cliente);
                     break;
                 case "Co":
-                    usuario.getConcesionario().setNit(id);
+                    concesionario.setNit(cliente.getCedula());
+                    usuario.setConcesionario(concesionario);
                     break;
             }
             us = usuarioFacade.validarUsuarioRegistrado(usuario,seleccion);
             if (us!=null) {                
                  context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido"));
-//                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us);
+                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us.getNombre());
                  redireccionar="consultarVehiculos.xhtml";
             } else {   
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto\n"+ usuario.getNombre()+"\n"+usuario.getContrasena()));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
             }
         } catch (Exception e) {
            

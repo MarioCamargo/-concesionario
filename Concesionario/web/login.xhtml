@@ -11,29 +11,29 @@
     <h:body>           
         <div>
             <center>
-                <h1>Iniciar sesion</h1>
+                <h1>Iniciar sesión</h1>
             <h:form>
-                <p:messages autoUpdate="true" showDetail="true"/>
+                <p:messages autoUpdate="true"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Tipo de usuario:"
                                    for="tipo" />
                     <p:selectOneMenu id="tipo"
-                                     value="#{iniciarSesionControlador.seleccion}"
+                                     value="#{iniciarSesionController.seleccion}"
                                      required="true" 
                                      requiredMessage="Seleccione un usuario.">
                         <f:selectItem itemLabel="Seleccione un usuario"/>
-                        <f:selectItem itemLabel="Cliente" itemValue="cl"/>
-                        <f:selectItem itemLabel="Concesionario" itemValue="co"/>
+                        <f:selectItem itemLabel="Cliente" itemValue="Cl"/>
+                        <f:selectItem itemLabel="Concesionario" itemValue="Co"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="txtUsuario" value="Identificacion"/>
-                    <p:inputText type="number" id="txtUsuario" value="#{iniciarSesionControlador.id}" required="true" 
-                                 requiredMessage="La identificacion del usuario es requerida" maxlength="10"/>
+                    <p:inputText id="txtUsuario" value="#{iniciarSesionController.cliente.cedula}" required="true" 
+                                 requiredMessage="La identificacion del usuario es requerida"/>
                     <p:outputLabel for="txtClave" value="Constraseña"/>
-                    <p:password id="txtClave" value="#{iniciarSesionControlador.usuario.contrasena}" 
+                    <p:password id="txtClave" value="#{iniciarSesionController.usuario.contrasena}" 
                                 required="true" requiredMessage="La contraseña es requerida"/>
                     
                     <h:column />
-                    <p:commandButton value="Ingresar" action="#{iniciarSesionControlador.iniciarSesion()}"/>
+                    <p:commandButton value="Ingresar" action="#{iniciarSesionController.iniciarSesion()}"/>
                 </h:panelGrid>                    
             </h:form> 
             </center>

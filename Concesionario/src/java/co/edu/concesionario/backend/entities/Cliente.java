@@ -6,9 +6,7 @@
 package co.edu.concesionario.backend.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,10 +41,9 @@ public class Cliente implements Serializable {
     private Integer idCliente;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "cedula")
-    private long cedula;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", fetch = FetchType.LAZY)
-    private List<Venta> ventaList;
+    private String cedula;
     @JoinColumn(name = "idCliente", referencedColumnName = "idTipo", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private TipoUsuario tipoUsuario;
@@ -59,7 +55,7 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, long cedula) {
+    public Cliente(Integer idCliente, String cedula) {
         this.idCliente = idCliente;
         this.cedula = cedula;
     }
@@ -72,21 +68,12 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public long getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(long cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
-    }
-
-    @XmlTransient
-    public List<Venta> getVentaList() {
-        return ventaList;
-    }
-
-    public void setVentaList(List<Venta> ventaList) {
-        this.ventaList = ventaList;
     }
 
     public TipoUsuario getTipoUsuario() {

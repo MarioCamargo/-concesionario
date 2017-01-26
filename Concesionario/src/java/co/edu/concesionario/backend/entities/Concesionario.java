@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,8 +45,9 @@ public class Concesionario implements Serializable {
     private Integer idConcesionario;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "nit")
-    private long nit;
+    private String nit;
     @JoinColumn(name = "idConcesionario", referencedColumnName = "idTipo", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private TipoUsuario tipoUsuario;
@@ -59,7 +61,7 @@ public class Concesionario implements Serializable {
         this.idConcesionario = idConcesionario;
     }
 
-    public Concesionario(Integer idConcesionario, int nit) {
+    public Concesionario(Integer idConcesionario, String nit) {
         this.idConcesionario = idConcesionario;
         this.nit = nit;
     }
@@ -72,11 +74,11 @@ public class Concesionario implements Serializable {
         this.idConcesionario = idConcesionario;
     }
 
-    public long getNit() {
+    public String getNit() {
         return nit;
     }
 
-    public void setNit(long nit) {
+    public void setNit(String nit) {
         this.nit = nit;
     }
 
