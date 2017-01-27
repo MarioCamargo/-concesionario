@@ -17,14 +17,14 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author SENA
  */
 @Named(value = "iniciarSesionController")
-@RequestScoped
+@ViewScoped
 public class IniciarSesionController implements Serializable {
 
     @EJB
@@ -33,6 +33,7 @@ public class IniciarSesionController implements Serializable {
     private Cliente cliente;
     private Concesionario concesionario;
     private String seleccion;
+    private String identi;
     
     public IniciarSesionController() {
     }
@@ -43,6 +44,14 @@ public class IniciarSesionController implements Serializable {
 
     public void setSeleccion(String seleccion) {
         this.seleccion = seleccion;
+    }
+
+    public String getIdenti() {
+        return identi;
+    }
+
+    public void setIdenti(String identi) {
+        this.identi = identi;
     }
     
     public TipoUsuario getUsuario() {
@@ -74,6 +83,7 @@ public class IniciarSesionController implements Serializable {
         usuario = new TipoUsuario();
         cliente = new Cliente();
         concesionario = new Concesionario();
+        identi = new String();
     }
     
     public String iniciarSesion() {
@@ -84,20 +94,20 @@ public class IniciarSesionController implements Serializable {
         try {
             switch (seleccion) {
                 case "Cl":
+                    cliente.setCedula(identi);
                     usuario.setCliente(cliente);
                     break;
                 case "Co":
-                    concesionario.setNit(cliente.getCedula());
+                    concesionario.setNit(identi);
                     usuario.setConcesionario(concesionario);
                     break;
             }
             us = usuarioFacade.validarUsuarioRegistrado(usuario,seleccion);
-            if (us!=null) {                
-                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido"));
-                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", us.getNombre());
-                 redireccionar="consultarVehiculos.xhtml";
-            } else {   
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
+            if (us!=null) {
+                 context.getExternalContext().getSessionMap().put("Usuario", us);
+                 redireccionar="Vehiculos/consultarVehiculo.xhtml?faces-redirect=true";
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","Usuario incorrecto"));
             }
         } catch (Exception e) {
            

@@ -4,8 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Gs Cars</title>    
+    <h:head>   
         <title>Iniciar sesión</title>
     </h:head>
     <h:body>           
@@ -13,7 +12,7 @@
             <center>
                 <h1>Iniciar sesión</h1>
             <h:form>
-                <p:messages autoUpdate="true"/>
+                <p:messages autoUpdate="true" showDetail="true"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Tipo de usuario:"
                                    for="tipo" />
@@ -26,7 +25,7 @@
                         <f:selectItem itemLabel="Concesionario" itemValue="Co"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="txtUsuario" value="Identificacion"/>
-                    <p:inputText id="txtUsuario" value="#{iniciarSesionController.cliente.cedula}" required="true" 
+                    <p:inputText id="txtUsuario" value="#{iniciarSesionController.identi}" required="true" 
                                  requiredMessage="La identificacion del usuario es requerida"/>
                     <p:outputLabel for="txtClave" value="Constraseña"/>
                     <p:password id="txtClave" value="#{iniciarSesionController.usuario.contrasena}" 

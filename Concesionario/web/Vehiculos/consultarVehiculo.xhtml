@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../Templates/menu.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="right">
+                right
+            </ui:define>
+
+            <ui:define name="content">
+                <center><h1><h:outputText value="Consultar"/></h1>
+                    <h:form style="width: auto">
+                        <p:messages autoUpdate="true"/>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Ingrese  el precio:" for="valorjsf"/>
+                            <p:inputText id="valorjsf" type="number"
+                                         value="#{vehiculoController.valor}"
+                                         title="valor"
+                                         required="true"
+                                         requiredMessage="Por favor ingrese un valor." />
+                            <p:column/>
+                            <p:commandButton action="listaVehiculos" value="Buscar"/>
+                        </h:panelGrid>
+                    </h:form></center>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
