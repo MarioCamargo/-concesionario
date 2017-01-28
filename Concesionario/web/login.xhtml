@@ -25,7 +25,7 @@
                         <f:selectItem itemLabel="Concesionario" itemValue="Co"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="txtUsuario" value="Identificacion"/>
-                    <p:inputText id="txtUsuario" value="#{iniciarSesionController.identi}" required="true" 
+                    <p:inputText type="number" id="txtUsuario" value="#{iniciarSesionController.identi}" required="true" 
                                  requiredMessage="La identificacion del usuario es requerida"/>
                     <p:outputLabel for="txtClave" value="Constraseña"/>
                     <p:password id="txtClave" value="#{iniciarSesionController.usuario.contrasena}" 

@@ -1,10 +1,9 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package co.edu.concesionario.frontend.controllers;
-
 
 import co.edu.concesionario.backend.entities.Cliente;
 import co.edu.concesionario.backend.entities.Concesionario;
@@ -34,7 +33,7 @@ public class IniciarSesionController implements Serializable {
     private Concesionario concesionario;
     private String seleccion;
     private String identi;
-    
+
     public IniciarSesionController() {
     }
 
@@ -53,7 +52,7 @@ public class IniciarSesionController implements Serializable {
     public void setIdenti(String identi) {
         this.identi = identi;
     }
-    
+
     public TipoUsuario getUsuario() {
         return usuario;
     }
@@ -77,7 +76,7 @@ public class IniciarSesionController implements Serializable {
     public void setConcesionario(Concesionario concesionario) {
         this.concesionario = concesionario;
     }
-    
+
     @PostConstruct
     public void init() {
         usuario = new TipoUsuario();
@@ -85,7 +84,7 @@ public class IniciarSesionController implements Serializable {
         concesionario = new Concesionario();
         identi = new String();
     }
-    
+
     public String iniciarSesion() {
         TipoUsuario us;
 
@@ -96,33 +95,35 @@ public class IniciarSesionController implements Serializable {
                 case "Cl":
                     cliente.setCedula(identi);
                     usuario.setCliente(cliente);
+                    us = usuarioFacade.validarUsuarioRegistrado(usuario, seleccion);
+                    if (us != null) {
+                        context.getExternalContext().getSessionMap().put("Usuario", us);
+                        redireccionar = "Vehiculos/indexCliente.xhtml?faces-redirect=true";
+                    } else {
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
+                    }
                     break;
                 case "Co":
                     concesionario.setNit(identi);
                     usuario.setConcesionario(concesionario);
+                    us = usuarioFacade.validarUsuarioRegistrado(usuario, seleccion);
+                    if (us != null) {
+                        context.getExternalContext().getSessionMap().put("Usuario", us);
+                        redireccionar = "Vehiculos/index    Concesionario.xhtml?faces-redirect=true";
+                    } else {
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
+                    }
                     break;
             }
-            us = usuarioFacade.validarUsuarioRegistrado(usuario,seleccion);
-            if (us!=null) {
-                 context.getExternalContext().getSessionMap().put("Usuario", us);
-                 redireccionar="Vehiculos/consultarVehiculo.xhtml?faces-redirect=true";
-            } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","Usuario incorrecto"));
-            }
+
         } catch (Exception e) {
-           
-              context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",""+e.getMessage()));
+
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "" + e.getMessage()));
         }
         return redireccionar;
     }
     
-    public List<TipoUsuario> listarUsuario(){
-        List<TipoUsuario> lista = null;
-        try{
-            lista= usuarioFacade.listarUsuarios(usuario);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return lista;
+    public void cerraSesion(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 }

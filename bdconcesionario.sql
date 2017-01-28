@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `concesionario` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `concesionario`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: concesionario
+-- Host: 192.168.0.2    Database: concesionario
 -- ------------------------------------------------------
 -- Server version	5.6.26
 
@@ -24,7 +26,7 @@ DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clientes` (
   `idCliente` int(11) NOT NULL,
-  `cedula` bigint(20) NOT NULL,
+  `cedula` varchar(25) NOT NULL,
   PRIMARY KEY (`idCliente`),
   UNIQUE KEY `cedula_UNIQUE` (`cedula`),
   CONSTRAINT `tipoUsuario/clientes` FOREIGN KEY (`idCliente`) REFERENCES `tiposusuario` (`idTipo`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -37,6 +39,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (11,'1023013382'),(12,'1023114330');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,9 +52,9 @@ DROP TABLE IF EXISTS `concesionarios`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `concesionarios` (
   `idConcesionario` int(11) NOT NULL,
-  `nit` int(11) NOT NULL,
+  `nit` varchar(25) NOT NULL,
   PRIMARY KEY (`idConcesionario`),
-  UNIQUE KEY `idConcesionario_UNIQUE` (`nit`),
+  UNIQUE KEY `nit_UNIQUE` (`nit`),
   CONSTRAINT `tipoUsuario/concesionario` FOREIGN KEY (`idConcesionario`) REFERENCES `tiposusuario` (`idTipo`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -62,32 +65,8 @@ CREATE TABLE `concesionarios` (
 
 LOCK TABLES `concesionarios` WRITE;
 /*!40000 ALTER TABLE `concesionarios` DISABLE KEYS */;
-INSERT INTO `concesionarios` VALUES (1,3825324),(2,12465652),(3,15385254),(4,52242865),(5,52532752),(6,52882142),(7,53227287),(8,252357245),(9,565827528),(10,572727558);
+INSERT INTO `concesionarios` VALUES (2,'12465652'),(3,'15385254'),(8,'252357245'),(1,'3825324'),(4,'52242865'),(5,'52532752'),(6,'52882142'),(7,'53227287'),(9,'565827528'),(10,'572727558');
 /*!40000 ALTER TABLE `concesionarios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `estadopermisos`
---
-
-DROP TABLE IF EXISTS `estadopermisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `estadopermisos` (
-  `idEstadoPermiso` int(11) NOT NULL,
-  `estado` varchar(45) NOT NULL,
-  PRIMARY KEY (`idEstadoPermiso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `estadopermisos`
---
-
-LOCK TABLES `estadopermisos` WRITE;
-/*!40000 ALTER TABLE `estadopermisos` DISABLE KEYS */;
-INSERT INTO `estadopermisos` VALUES (1,'activo'),(2,'inactivo');
-/*!40000 ALTER TABLE `estadopermisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -115,62 +94,6 @@ INSERT INTO `marcas` VALUES (1,'Renault'),(2,'BMW'),(3,'Chery'),(4,'Chevrolet'),
 UNLOCK TABLES;
 
 --
--- Table structure for table `permisos`
---
-
-DROP TABLE IF EXISTS `permisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `permisos` (
-  `idPermiso` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `permisoPadre` int(11) DEFAULT NULL,
-  `estado` int(11) NOT NULL,
-  PRIMARY KEY (`idPermiso`),
-  KEY `permisos/permisosPadre_idx` (`permisoPadre`),
-  KEY `permisos/estado_idx` (`estado`),
-  CONSTRAINT `permisos/estado` FOREIGN KEY (`estado`) REFERENCES `estadopermisos` (`idEstadoPermiso`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `permisos/permisosPadre` FOREIGN KEY (`permisoPadre`) REFERENCES `permisos` (`idPermiso`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `permisos`
---
-
-LOCK TABLES `permisos` WRITE;
-/*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
-INSERT INTO `permisos` VALUES (1,'vehiculos',NULL,1),(2,'perfil',NULL,1),(3,'ventas',NULL,1),(4,'ingresar vehiculo',1,1),(5,'consultar vehiculo',1,1),(6,'promedio  ventas',3,1),(7,'ventas realizadas',3,1),(8,'editar perfil',2,1),(9,'cerrar sesion',2,1);
-/*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `permisostipo`
---
-
-DROP TABLE IF EXISTS `permisostipo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `permisostipo` (
-  `idPermiso` int(11) NOT NULL,
-  `idTipo` int(11) NOT NULL,
-  PRIMARY KEY (`idPermiso`,`idTipo`),
-  KEY `tipoUsuario/permisostipo_idx` (`idTipo`),
-  CONSTRAINT `permisos/permisostipo` FOREIGN KEY (`idPermiso`) REFERENCES `permisos` (`idPermiso`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `tipoUsuario/permisostipo` FOREIGN KEY (`idTipo`) REFERENCES `tiposusuario` (`idTipo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `permisostipo`
---
-
-LOCK TABLES `permisostipo` WRITE;
-/*!40000 ALTER TABLE `permisostipo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `permisostipo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipos`
 --
 
@@ -190,7 +113,7 @@ CREATE TABLE `tipos` (
 
 LOCK TABLES `tipos` WRITE;
 /*!40000 ALTER TABLE `tipos` DISABLE KEYS */;
-INSERT INTO `tipos` VALUES (1,'automovil'),(2,'camioneta'),(3,'familiar'),(4,'deportivo'),(5,'todoterreno'),(6,'furgoneta');
+INSERT INTO `tipos` VALUES (1,'Automovil'),(2,'Camioneta'),(3,'Familiar'),(4,'Deportivo'),(5,'Todo terreno'),(6,'Furgoneta');
 /*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +140,7 @@ CREATE TABLE `tiposusuario` (
 
 LOCK TABLES `tiposusuario` WRITE;
 /*!40000 ALTER TABLE `tiposusuario` DISABLE KEYS */;
-INSERT INTO `tiposusuario` VALUES (1,'Auto  blitz','6529666','Cra. 70 #95-15','123'),(2,'Demcautos   S.A','5931600','Kr 19 #100',''),(3,'Lyra Motors','6663613','cll 94 #11A -13',''),(4,'Colyong','6457894','Cra. 15',''),(5,'Sanautos',' 6348299','Ak. 19',''),(6,'Geely','6528800','Av. BoyacÃ¡ #96A - 47',''),(7,'Ultracar','6589742','Cl. 116 #55a-11',''),(8,'Cinascar','6060688','Ac 72 #2067',''),(9,'Jorge Cortes y Cia','2557177','# Esquina, Ak. 24',''),(10,'AutoMotores Europa','2265858','05, Cl. 126 #60','');
+INSERT INTO `tiposusuario` VALUES (1,'Auto blitz','6529666','Cra. 70 #95-15','@'),(2,'Demcautos S.A','5931600','Kr 19 #100','@'),(3,'Lyra Motors','6663613','cll 94 #11A -13','@'),(4,'Colyong','6457894','Cra. 15','@'),(5,'Sanautos',' 6348299','Ak. 19','@'),(6,'Geely','6528800','Av. Boyaca #96A - 47','@'),(7,'Ultracar','6589742','Cl. 116 #55a-11','@'),(8,'Cinascar','6060688','Ac 72 #2067','@'),(9,'Jorge Cortes y Cia','2557177','# Esquina, Ak. 24','@'),(10,'AutoMotores Europa','2265858','05, Cl. 126 #60','@'),(11,'Mario Camargo','7643145','cll 97 sur #5-07 este','vSc'),(12,'John Ruiz','7686442','cll 87 #43-76 ','w');
 /*!40000 ALTER TABLE `tiposusuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +156,7 @@ CREATE TABLE `vehiculos` (
   `placa` varchar(8) NOT NULL,
   `marca` int(11) NOT NULL,
   `modelo` int(11) NOT NULL,
-  `precio` double NOT NULL,
+  `precio` int(11) NOT NULL,
   `concesionario` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `tipo` int(11) NOT NULL,
@@ -291,6 +214,30 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'concesionario'
 --
+/*!50003 DROP FUNCTION IF EXISTS `setContrasena` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `setContrasena`(contra varchar(45)) RETURNS varchar(45) CHARSET utf8
+BEGIN
+declare con varchar(45);
+declare salida varchar(45);
+set con = concat('conce',contra,'sionario');
+
+set salida= (select aes_encrypt('mario1609',con));
+RETURN salida;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -301,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-17 20:47:44
+-- Dump completed on 2017-01-27 20:05:15

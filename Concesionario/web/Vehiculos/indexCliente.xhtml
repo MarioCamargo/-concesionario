@@ -35,20 +35,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <center><h1><h:outputText value="Consultar"/></h1>
-                    <h:form style="width: auto">
-                        <p:messages autoUpdate="true"/>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Ingrese  el precio:" for="valorjsf"/>
-                            <p:inputText id="valorjsf" type="number"
-                                         value="#{vehiculoController.valor}"
-                                         title="valor"
-                                         required="true"
-                                         requiredMessage="Por favor ingrese un valor." />
-                            <p:column/>
-                            <p:commandButton action="listaVehiculos" value="Buscar"/>
-                        </h:panelGrid>
-                    </h:form></center>
+                content
             </ui:define>
 
             <ui:define name="bottom">

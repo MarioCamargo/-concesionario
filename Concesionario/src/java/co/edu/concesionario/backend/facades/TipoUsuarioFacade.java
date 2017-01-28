@@ -40,7 +40,7 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
         try {
             switch (tipo) {
                 case "Cl":
-                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN clientes cl on tu.idTipo=cl.idCliente WHERE cl.cedula =? and tu.contrasena =?";
+                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN clientes cl on tu.idTipo=cl.idCliente WHERE cl.cedula =? and tu.contrasena =setContrasena(?)";
                     query = em.createNativeQuery(consulta, TipoUsuario.class);
                     query.setParameter(1, us.getCliente().getCedula());
                     query.setParameter(2, us.getContrasena());
@@ -50,7 +50,7 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> implements Ti
                     }
                     break;
                 case "Co":
-                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN concesionarios co on tu.idTipo=co.idConcesionario WHERE co.nit =? and tu.contrasena =?";
+                    consulta = "SELECT tu.idTipo, tu.nombre, tu.telefono, tu.direccion, tu.contrasena FROM tiposusuario tu JOIN concesionarios co on tu.idTipo=co.idConcesionario WHERE co.nit =? and tu.contrasena =setContrasena(?)";
                     query = em.createNativeQuery(consulta, TipoUsuario.class);
                     query.setParameter(1, us.getConcesionario().getNit());
                     query.setParameter(2, us.getContrasena());

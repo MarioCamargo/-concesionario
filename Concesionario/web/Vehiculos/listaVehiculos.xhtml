@@ -8,10 +8,23 @@
 
     <body>
 
-        <ui:composition template="./../Templates/menu.xhtml">
+        <ui:composition template="./../Templates/menuCliente.xhtml">
 
             <ui:define name="top">
-                top
+                <h:form>
+                    <p:menubar>
+                        <p:submenu label="Vehiculos">
+                            <p:menuitem value="Consultar vehiculos" action="consultarVehiculo" icon="ui-icon-disk" />
+                        </p:submenu>
+                        <p:submenu label="Ventas">
+                            <p:menuitem value="Ventas realiazadas" icon="ui-icon-disk"/>
+                        </p:submenu>
+                        <p:submenu label="Perfil" style="margin-left: 82%">
+                                <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
+                                <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
+                        </p:submenu>
+                    </p:menubar> 
+                </h:form>
             </ui:define>
 
             <ui:define name="left">

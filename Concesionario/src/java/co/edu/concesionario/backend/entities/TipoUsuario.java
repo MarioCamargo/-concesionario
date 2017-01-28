@@ -65,8 +65,6 @@ public class TipoUsuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "contrasena")
     private String contrasena;
-    @ManyToMany(mappedBy = "tipoUsuarioList", fetch = FetchType.LAZY)
-    private List<Permiso> permisoList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
     private Concesionario concesionario;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
@@ -125,15 +123,6 @@ public class TipoUsuario implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    @XmlTransient
-    public List<Permiso> getPermisoList() {
-        return permisoList;
-    }
-
-    public void setPermisoList(List<Permiso> permisoList) {
-        this.permisoList = permisoList;
     }
 
     public Concesionario getConcesionario() {
