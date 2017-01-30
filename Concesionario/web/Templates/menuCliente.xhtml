@@ -14,19 +14,19 @@
         <f:event type="preRenderView" listener="#{seguridadController.sesion()}"/>
     </h:head>
 
-    <h:body>
+    <h:body class="menuCliente">
 
         <div id="top">
             <ui:insert name="top">
                 <h:form>
                     <p:menubar>
                         <p:submenu label="Vehiculos">
-                            <p:menuitem value="Consultar vehiculos" actionListener="consultarVehiculo" icon="ui-icon-disk" />
+                            <p:menuitem value="Consultar vehiculos" actionListener="consultarVehiculo?faces-redirect=true" icon="ui-icon-disk" />
                         </p:submenu>
                         <p:submenu label="Ventas">
                             <p:menuitem value="Ventas realiazadas" icon="ui-icon-disk"/>
                         </p:submenu>
-                        <p:submenu label="Perfil" style="margin-left: 82%">
+                        <p:submenu label="Perfil" style="margin-left:80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
                                 <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
@@ -35,21 +35,13 @@
             </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
             <div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
-                </div>
                 <div id="content" class="right_content">
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
         </div>
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
-        </div>
+        
 
     </h:body>
 

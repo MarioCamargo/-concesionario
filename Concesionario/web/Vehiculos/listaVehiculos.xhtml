@@ -19,7 +19,7 @@
                         <p:submenu label="Ventas">
                             <p:menuitem value="Ventas realiazadas" icon="ui-icon-disk"/>
                         </p:submenu>
-                        <p:submenu label="Perfil" style="margin-left: 82%">
+                        <p:submenu label="Perfil" style="margin-left: 80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
                                 <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
@@ -39,19 +39,20 @@
                 <f:view>
 
 
-                    <h:form>
+                    <h:form id="form1">
                         <center><h1><h:outputText value="Vehiculos"/></h1></center>
-                        <p:panel header="Exportar Tabla">
+                        <p:panel style="width: 300px; background: none; border: none;">
+                            <h:outputLabel style="color: #fff; font-size: 26px; font-family: 'Helvetica CE';" value="Exportar tabla: "/>
                             <h:commandLink>
-                                <p:graphicImage value="../Imagenes/pdf.png" width="44"/>
+                                <p:graphicImage value="../Imagenes/pdf.png" width="40"/>
                                 <p:dataExporter type="pdf" target="vehiculo" fileName="vehiculos" pageOnly="true"/>
                             </h:commandLink>
                             <h:commandLink>
-                                <p:graphicImage value="../Imagenes/excel.png" width="44"/>
+                                <p:graphicImage value="../Imagenes/excel.png" width="40"/>
                                 <p:dataExporter type="xls" target="vehiculo" fileName="vehiculos" pageOnly="true"/>
                             </h:commandLink>
                         </p:panel>
-                        <p:dataTable id="vehiculo" value="#{vehiculoController.listarVehiculos()}" var="item" paginator="true" rows="5" rowsPerPageTemplate="5,10,15">
+                        <p:dataTable id="vehiculo" value="#{vehiculoController.listarVehiculos()}" var="item" paginator="true" rows="5" paginatorPosition="top" rowsPerPageTemplate="5,10,15">
 
                             <p:column>
                                 <f:facet name="header">
@@ -102,7 +103,8 @@
                                 <h:outputText value="#{item.tipo.tipo}"/>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton action="consultarVehiculo" value="Otro valor"/>
+                        <br/>
+                        <center><p:commandButton class="botonAzul" action="consultarVehiculo?faces-redirect=true" value="Otro valor"/></center>
                     </h:form>
                 </f:view>
             </ui:define>

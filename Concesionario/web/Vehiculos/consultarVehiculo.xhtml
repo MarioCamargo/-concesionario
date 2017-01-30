@@ -18,12 +18,13 @@
                         <p:submenu label="Ventas">
                             <p:menuitem value="Ventas realiazadas" icon="ui-icon-disk"/>
                         </p:submenu>
-                        <p:submenu label="Perfil" style="margin-left: 82%">
+                        <p:submenu label="Perfil" style="margin-left: 80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
                                 <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
                     </p:menubar> 
                 </h:form>
+
             </ui:define>
 
             <ui:define name="left">
@@ -35,8 +36,9 @@
             </ui:define>
 
             <ui:define name="content">
-                <center><h1><h:outputText value="Consultar"/></h1>
-                    <h:form style="width: auto">
+                <center>
+                    <h:form id="form">
+                        <h1><h:outputText value="Consultar"/></h1>
                         <p:messages autoUpdate="true"/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Ingrese  el precio:" for="valorjsf"/>
@@ -46,7 +48,7 @@
                                          required="true"
                                          requiredMessage="Por favor ingrese un valor." />
                             <p:column/>
-                            <p:commandButton action="listaVehiculos" value="Buscar"/>
+                            <p:commandButton class="botonAzul" value="Buscar" action="#{vehiculoController.redireccionar()}"/>
                         </h:panelGrid>
                     </h:form></center>
             </ui:define>

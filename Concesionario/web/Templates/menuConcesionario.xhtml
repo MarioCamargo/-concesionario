@@ -12,7 +12,7 @@
         <title>Concesionario</title>
     </h:head>
 
-    <h:body>
+    <h:body class="menuConcesionario">
 
         <div id="top">
             <ui:insert name="top">
@@ -24,7 +24,7 @@
                         <p:submenu label="Ventas">
                             <p:menuitem value="Promedio ventas" icon="ui-icon-disk"/>
                         </p:submenu>
-                        <p:submenu label="Perfil" style="margin-left: 82%">
+                        <p:submenu label="Perfil" style="margin-left: 80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
                                 <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
@@ -33,20 +33,11 @@
             </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
             <div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
-                </div>
                 <div id="content" class="right_content">
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
-        </div>
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
         </div>
 
     </h:body>

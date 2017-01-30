@@ -18,7 +18,7 @@
                         <p:submenu label="Ventas">
                             <p:menuitem value="Promedio ventas" icon="ui-icon-disk"/>
                         </p:submenu>
-                        <p:submenu label="Perfil" style="margin-left: 82%">
+                        <p:submenu label="Perfil" style="margin-left: 80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
                                 <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
@@ -35,7 +35,10 @@
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h:form>
+                    <p:messages autoUpdate="true" showDetail="true"/>
+                    <p:outputLabel style="color: #ffffff" value="Bienvenido #{iniciarSesionController.usuario.nombre}"/>
+                </h:form>
             </ui:define>
 
             <ui:define name="bottom">

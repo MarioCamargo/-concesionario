@@ -6,16 +6,11 @@
 package co.edu.concesionario.backend.facades;
 
 import co.edu.concesionario.backend.entities.Vehiculo;
-import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.StoredProcedureParameter;
-import javax.persistence.StoredProcedureQuery;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -60,23 +55,5 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements Vehiculo
             
         }
         return vehiculo;
-    }
-
-    @Override
-    public String importarArchivos(String fileName) throws SQLException {
-        int salida = 0;
-        String msg ;    
-        //para mas detalles revisa LOAD DATA LOCAL INFILE en Mysql
-        String query = "LOAD DATA LOCAL INFILE '" + fileName + "' INTO TABLE tblproductos  FIELDS TERMINATED BY ',' "
-                + " IGNORE 1 LINES  (nombreproducto, valorinicial) ";  //campos de la tabla. los auto_increment no se colocan
-       salida = em.createNativeQuery(query).executeUpdate();
-         if (salida > 0) {
-            msg = "Se cargaron exitosamente "+salida+" registros a la tabla";
-        } else if (salida ==0){
-            msg = "No se han cargado los datos. Verifique que no hayan sido cargados previamente a la tabla ";
-        }else{
-            msg = "Inexperado. Contacte al que sabe!";
-        }
-        return msg;
     }
 }

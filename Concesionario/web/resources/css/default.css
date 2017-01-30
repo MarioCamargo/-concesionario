@@ -1,19 +1,17 @@
 body {
-    background-color: #ffffff;
     font-size: 12px;
-    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-family: "Helvetica CE";
     color: #000000;  
     margin: 10px;
 }
 
-h1 {
-    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+.h1 {
+    font-family: "Helvetica CE";
     border-bottom: 1px solid #AFAFAF; 
-    font-size:  16px;
-    font-weight: bold;
+    font-size:  25px;
     margin: 0px;
     padding: 0px;
-    color: #D20005;
+    color: #fff;
 }
 
 a:link, a:visited {
@@ -26,4 +24,42 @@ a:link:hover, a:visited:hover  {
   color: #045491;
   font-weight : bold;
   text-decoration : underline;
+}
+
+.menuCliente{
+    background-image: url(../..//Imagenes/fondoCliente.jpg);
+    background-repeat:  no-repeat;
+    background-size: 100%;
+}
+
+.menuConcesionario{
+    background-image: url(../..//Imagenes/fondoConcesionario.png);
+    background-repeat:  no-repeat;
+    background-size: 100%;
+}
+
+.login{
+    background-image: url(../..//Imagenes/login.jpg);
+    background-repeat:  no-repeat;
+    background-size: 100%;
+}
+
+#form{
+    
+    background-color: rgba(255,255,255,0.4);
+    padding: 20px;
+    width: 40%;
+    font-size: 16px; 
+}
+
+#form1{
+    
+    background-color: rgba(255,255,255,0.4);
+    padding: 20px;
+    width: 110%;
+    font-size: 16px; 
+}
+
+.botonAzul{
+    background-color: #0088ff;
 }

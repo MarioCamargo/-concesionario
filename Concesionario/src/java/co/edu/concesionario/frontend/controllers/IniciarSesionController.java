@@ -14,7 +14,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 
@@ -85,6 +84,15 @@ public class IniciarSesionController implements Serializable {
         identi = new String();
     }
 
+    public void save() {
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Bienvenido " + usuario.getNombre()));
+    }
+    
+    public void execute() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Executed", "Using RemoteCommand."));
+    }
+    
     public String iniciarSesion() {
         TipoUsuario us;
 
@@ -97,6 +105,7 @@ public class IniciarSesionController implements Serializable {
                     usuario.setCliente(cliente);
                     us = usuarioFacade.validarUsuarioRegistrado(usuario, seleccion);
                     if (us != null) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", us.getNombre()));
                         context.getExternalContext().getSessionMap().put("Usuario", us);
                         redireccionar = "Vehiculos/indexCliente.xhtml?faces-redirect=true";
                     } else {
@@ -109,7 +118,7 @@ public class IniciarSesionController implements Serializable {
                     us = usuarioFacade.validarUsuarioRegistrado(usuario, seleccion);
                     if (us != null) {
                         context.getExternalContext().getSessionMap().put("Usuario", us);
-                        redireccionar = "Vehiculos/index    Concesionario.xhtml?faces-redirect=true";
+                        redireccionar = "Vehiculos/indexConcesionario.xhtml?faces-redirect=true";
                     } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario incorrecto"));
                     }

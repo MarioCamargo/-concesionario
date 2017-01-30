@@ -30,8 +30,6 @@ public interface VehiculoFacadeLocal {
     List<Vehiculo> findRange(int[] range);
     
     List<Vehiculo> listarCarros(int valor);
-    
-    String importarArchivos(String fileName)throws SQLException;
 
     int count();
     

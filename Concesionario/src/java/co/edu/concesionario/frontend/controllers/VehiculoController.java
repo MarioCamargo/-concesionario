@@ -22,8 +22,6 @@ public class VehiculoController implements Serializable {
     private VehiculoFacadeLocal vehiculoFacade;
     private int valor;
     private Vehiculo vehiculo;
-    private List <Vehiculo> vehiculoList;
-    private List <Vehiculo> vehiculoListar;
     
     public VehiculoController() {
     }
@@ -34,15 +32,6 @@ public class VehiculoController implements Serializable {
 
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
-    }
-
-    public List<Vehiculo> getVehiculoListar() {
-        vehiculoListar = vehiculoFacade.findAll();
-        return vehiculoListar;
-    }
-
-    public void setVehiculoListar(List<Vehiculo> vehiculoListar) {
-        this.vehiculoListar = vehiculoListar;
     }
 
     public int getValor() {
@@ -58,8 +47,8 @@ public class VehiculoController implements Serializable {
         vehiculo = new Vehiculo();
     }
     
-    public String redirigir(){
-        return "listarVehiculos.xhtml";
+    public String redireccionar(){
+        return "listaVehiculos";
     }
     
     public List<Vehiculo> listarVehiculos(){
