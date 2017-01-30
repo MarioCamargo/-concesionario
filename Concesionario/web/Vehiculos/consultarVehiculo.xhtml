@@ -20,7 +20,7 @@
                         </p:submenu>
                         <p:submenu label="Perfil" style="margin-left: 80%">
                                 <p:menuitem value="Editar perfil" icon="ui-icon-home"/>
-                                <p:menuitem value="Cerrar sesiòn" action="listaVehiculos" icon="ui-icon-key" action="/login?faces-redirect=true"/>
+                                <p:menuitem value="Cerrar sesiòn" actionListener="#{iniciarSesionController.cerraSesion()}" icon="ui-icon-key" action="/login?faces-redirect=true"/>
                         </p:submenu>
                     </p:menubar> 
                 </h:form>
@@ -48,7 +48,7 @@
                                          required="true"
                                          requiredMessage="Por favor ingrese un valor." />
                             <p:column/>
-                            <p:commandButton class="botonAzul" value="Buscar" action="#{vehiculoController.redireccionar()}"/>
+                            <p:commandButton class="botonAzul" value="Buscar" action="listaVehiculos"/>
                         </h:panelGrid>
                     </h:form></center>
             </ui:define>

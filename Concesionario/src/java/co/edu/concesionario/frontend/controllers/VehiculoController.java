@@ -47,6 +47,10 @@ public class VehiculoController implements Serializable {
         vehiculo = new Vehiculo();
     }
     
+    public String redireccionar(){
+        return "listaVehiculos?faces-redirect=true";
+    }
+    
     public List<Vehiculo> listarVehiculos(){
         List<Vehiculo> lista = null;
         try{
